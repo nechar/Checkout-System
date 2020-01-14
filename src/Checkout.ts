@@ -1,6 +1,8 @@
 import { items } from "./data/items";
+import { Item } from "./data/item";
+
 export class Checkout {
-  cart = [];
+  cart: Item[] = [];
 
   scan(itemSKU: string): boolean {
     const result = items.filter(item => item.sku === itemSKU);
