@@ -18,8 +18,6 @@ export class CheckoutService {
     this.cart.forEach(item => {
       total += item.price;
     });
-    console.log("total", total);
-
     return total;
   }
 }
