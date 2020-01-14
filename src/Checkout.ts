@@ -1,7 +1,7 @@
 import { items } from "./data/items";
 import { Item } from "./data/item";
 
-export class Checkout {
+export class CheckoutService {
   cart: Item[] = [];
 
   scan(itemSKU: string): boolean {
@@ -11,5 +11,15 @@ export class Checkout {
       return true;
     }
     return false;
+  }
+
+  total(): number {
+    let total = 0;
+    this.cart.forEach(item => {
+      total += item.price;
+    });
+    console.log("total", total);
+
+    return total;
   }
 }
