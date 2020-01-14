@@ -22,3 +22,9 @@ test("Cannot checkout without adding an item", () => {
   const checkout = new CheckoutService();
   expect(checkout.checkout()).toBeFalsy();
 });
+
+test("Can checkout after adding at least one item", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("ipd");
+  expect(checkout.checkout()).toBeTruthy();
+});
