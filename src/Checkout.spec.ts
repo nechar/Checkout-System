@@ -8,6 +8,6 @@ test("should be able to scan an existing item- Eg: Super iPad", () => {
 test("when an item is added into the cart, the total should be greater than zero", () => {
   const checkout = new CheckoutService();
   checkout.scan("ipd");
-  const total = checkout.total();
+  const total = checkout.getTotal();
   expect(total).toBeGreaterThan(0);
 });

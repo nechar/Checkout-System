@@ -13,7 +13,7 @@ export class CheckoutService {
     return false;
   }
 
-  total(): number {
+  getTotal(): number {
     let total = 0;
     this.cart.forEach(item => {
       total += item.price;
