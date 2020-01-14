@@ -20,4 +20,12 @@ export class CheckoutService {
     });
     return total;
   }
+
+  checkout(): boolean {
+    if (this.cart.length) {
+      this.cart = []; // Make the cart empty
+      return true;
+    }
+    return false;
+  }
 }

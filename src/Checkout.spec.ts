@@ -17,3 +17,8 @@ test("when an item is added into the cart, the total should be greater than zero
   const total = checkout.getTotal();
   expect(total).toBeGreaterThan(0);
 });
+
+test("Cannot checkout without adding an item", () => {
+  const checkout = new CheckoutService();
+  expect(checkout.checkout()).toBeFalsy();
+});
