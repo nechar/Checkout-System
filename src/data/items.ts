@@ -8,17 +8,17 @@ export const items: Item[] = [
   },
   {
     sku: "mbp",
-    name: "Super iPad",
-    price: 549.99
+    name: "MacBook Pro",
+    price: 1399.99
   },
   {
     sku: "atv",
-    name: "Super iPad",
-    price: 549.99
+    name: "Apple TV",
+    price: 109.5
   },
   {
     sku: "vga",
-    name: "Super iPad",
-    price: 549.99
+    name: "VGA adapter",
+    price: 30.0
   }
 ];
