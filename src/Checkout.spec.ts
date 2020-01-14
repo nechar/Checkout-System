@@ -18,18 +18,18 @@ test("when an item is added into the cart, the total should be greater than zero
   expect(total).toBeGreaterThan(0);
 });
 
-test("Cannot checkout without adding an item", () => {
+test("should NOT be able checkout without adding an item", () => {
   const checkout = new CheckoutService();
   expect(checkout.checkout()).toBeFalsy();
 });
 
-test("Can checkout after adding at least one item", () => {
+test("should be able checkout after adding at least one item", () => {
   const checkout = new CheckoutService();
   checkout.scan("ipd");
   expect(checkout.checkout()).toBeTruthy();
 });
 
-test("Can checkout after adding at multiple item", () => {
+test("should be able checkout after adding at multiple item", () => {
   const checkout = new CheckoutService();
   checkout.scan("ipd");
   checkout.scan("ipd");
