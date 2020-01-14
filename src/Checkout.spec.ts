@@ -1,5 +1,6 @@
-import { sum } from "./Checkout";
+import { Checkout } from "./Checkout";
 
-test("adds 1 + 2 to equal 3", () => {
-  expect(sum(1, 2)).toBe(3);
+test("should be able to scan an existing item- Eg: Super iPad", () => {
+  const checkout = new Checkout();
+  expect(checkout.scan("ipd")).toBeTruthy();
 });
