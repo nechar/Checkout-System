@@ -28,3 +28,10 @@ test("Can checkout after adding at least one item", () => {
   checkout.scan("ipd");
   expect(checkout.checkout()).toBeTruthy();
 });
+
+test("Can checkout after adding at multiple item", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("ipd");
+  checkout.scan("ipd");
+  expect(checkout.checkout()).toBeTruthy();
+});
