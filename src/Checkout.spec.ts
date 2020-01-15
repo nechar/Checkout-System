@@ -36,7 +36,7 @@ test("should be able checkout after adding at multiple item", () => {
   expect(checkout.checkout()).toBeTruthy();
 });
 
-test("Adding Super iPad should cost 1099.98", () => {
+test("Scanning Super iPad should cost 1099.98", () => {
   const checkout = new CheckoutService();
   checkout.scan("ipd");
   checkout.scan("ipd");
@@ -44,7 +44,7 @@ test("Adding Super iPad should cost 1099.98", () => {
   expect(total).toBe(1099.98);
 });
 
-test("Adding Super iPad should automatically apply a discount. Total cost should be 2499.95", () => {
+test("Scanning FIVE Super iPad should automatically apply a discount. Total cost should be 2499.95", () => {
   const checkout = new CheckoutService();
   checkout.scan("ipd");
   checkout.scan("ipd");
@@ -55,14 +55,38 @@ test("Adding Super iPad should automatically apply a discount. Total cost should
   expect(total).toBe(2499.95);
 });
 
-test("Adding Mac Book pro should automatically add an item VGA adapter", () => {
+test("Scanning a Mac Book pro should automatically add an item - VGA adapter", () => {
   const checkout = new CheckoutService();
   checkout.scan("mbp");
   expect(checkout.findCartItem("vga")).toBeTruthy();
 });
 
-test("Adding an apple TV should have only one apple TV", () => {
+test("Scanning an Apple TV should result in having only 1 apple TV on the cart", () => {
   const checkout = new CheckoutService();
   checkout.scan("atv");
   expect(checkout.findCartItem("atv").quantity === 1).toBeTruthy();
+});
+
+test("Scanning TWO apple TV should have THREE apple TVs on the cart", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("atv");
+  checkout.scan("atv");
+  expect(checkout.findCartItem("atv").quantity === 3).toBeTruthy();
+});
+
+test("Scanning THREE apple TV should have FOUR apple TVs on the cart", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("atv");
+  checkout.scan("atv");
+  checkout.scan("atv");
+  expect(checkout.findCartItem("atv").quantity === 4).toBeTruthy();
+});
+
+test("Scanning FOUR apple TV should have SIX apple TVs on the cart", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("atv");
+  checkout.scan("atv");
+  checkout.scan("atv");
+  checkout.scan("atv");
+  expect(checkout.findCartItem("atv").quantity === 6).toBeTruthy();
 });

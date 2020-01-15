@@ -4,6 +4,8 @@ import { Item } from "./data/item";
 export class CheckoutService {
   cartItems: Item[] = [];
 
+  freeVGAEligible = false;
+
   scan(itemSKU: string): boolean {
     const scannedItem: Item = this.findItem(itemSKU);
     if (!scannedItem) {
@@ -50,6 +52,14 @@ export class CheckoutService {
       if (scannedItem.offerCode === "freeVGAAdapter") {
         const vga = this.findItem("vga");
         this.addItemToCart(vga);
+      }
+      if (scannedItem.offerCode === "3for2") {
+        if (this.freeVGAEligible) {
+          this.addItemToCart(scannedItem);
+          this.freeVGAEligible = false;
+        } else {
+          this.freeVGAEligible = true;
+        }
       }
     });
   }
