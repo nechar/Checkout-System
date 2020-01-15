@@ -35,3 +35,22 @@ test("should be able checkout after adding at multiple item", () => {
   checkout.scan("ipd");
   expect(checkout.checkout()).toBeTruthy();
 });
+
+test("Adding Super iPad should cost 1099.98", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("ipd");
+  checkout.scan("ipd");
+  const total = checkout.getTotal();
+  expect(total).toBe(1099.98);
+});
+
+test("Adding Super iPad should automatically apply a discount. Total cost should be 2499.95", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("ipd");
+  checkout.scan("ipd");
+  checkout.scan("ipd");
+  checkout.scan("ipd");
+  checkout.scan("ipd");
+  const total = checkout.getTotal();
+  expect(total).toBe(2499.95);
+});
