@@ -5,12 +5,38 @@ export class CheckoutService {
   cart: Item[] = [];
 
   scan(itemSKU: string): boolean {
-    const result = items.filter(item => item.sku === itemSKU);
-    if (result.length) {
-      this.cart.push(result[0]);
-      return true;
+    const scannedItem = this.findItem(itemSKU);
+    if (!scannedItem) {
+      return false;
     }
-    return false;
+    this.addItemToCart(scannedItem);
+    if (scannedItem.offerCode) {
+      this.applyDiscount(scannedItem);
+    }
+    return true;
+  }
+
+  private addItemToCart(scannedItem) {
+    this.cart.push(scannedItem);
+  }
+
+  private findItem(itemSKU) {
+    const item = items.filter(item => item.sku === itemSKU);
+    if (item.length) {
+      return item[0];
+    }
+    return null;
+  }
+
+  applyDiscount(scannedItem: Item) {
+    switch (scannedItem.offerCode) {
+      case "3for2":
+        break;
+      case "bulk-discount":
+        break;
+      case "freeVGAAdapter":
+        break;
+    }
   }
 
   getTotal(): number {
