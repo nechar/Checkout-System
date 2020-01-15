@@ -46,20 +46,22 @@ export class CheckoutService {
 
   applyDiscount(scannedItem: Item) {
     this.cartItems.forEach(cartItem => {
-      if (cartItem.offerCode === "bulk-discount" && cartItem.quantity > 4) {
-        cartItem.price = 499.99;
-      }
-      if (scannedItem.offerCode === "freeVGAAdapter") {
-        const vga = this.findItem("vga");
-        this.addItemToCart(vga);
-      }
-      if (scannedItem.offerCode === "3for2") {
-        if (this.freeVGAEligible) {
-          this.addItemToCart(scannedItem);
-          this.freeVGAEligible = false;
-        } else {
-          this.freeVGAEligible = true;
-        }
+      switch (scannedItem.offerCode) {
+        case "bulk-discount":
+          if (cartItem.quantity > 4) {
+            cartItem.price = 499.99;
+          }
+          break;
+        case "freeVGAAdapter":
+          const vga = this.findItem("vga");
+          this.addItemToCart(vga);
+          break;
+        case "3for2":
+          if (this.freeVGAEligible) {
+            this.addItemToCart(scannedItem);
+          }
+          this.freeVGAEligible = !this.freeVGAEligible;
+          break;
       }
     });
   }
