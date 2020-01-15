@@ -2,10 +2,10 @@ import { items } from "./data/items";
 import { Item } from "./data/item";
 
 export class CheckoutService {
-  cart: Item[] = [];
+  cartItems: Item[] = [];
 
   scan(itemSKU: string): boolean {
-    const scannedItem = this.findItem(itemSKU);
+    const scannedItem: Item = this.findItem(itemSKU);
     if (!scannedItem) {
       return false;
     }
@@ -16,8 +16,20 @@ export class CheckoutService {
     return true;
   }
 
-  private addItemToCart(scannedItem) {
-    this.cart.push(scannedItem);
+  private addItemToCart(scannedItem: Item) {
+    let itemAlreadyExistInCart = false;
+    this.cartItems.forEach(cartItem => {
+      if (cartItem.sku === scannedItem.sku) {
+        // Case: Item already exist in the cart
+        itemAlreadyExistInCart = true;
+        cartItem.quantity++;
+        return;
+      }
+    });
+    // Case: Item does NOT exist in the cart
+    if (!itemAlreadyExistInCart) {
+      this.cartItems.push(scannedItem);
+    }
   }
 
   private findItem(itemSKU) {
@@ -41,15 +53,15 @@ export class CheckoutService {
 
   getTotal(): number {
     let total = 0;
-    this.cart.forEach(item => {
+    this.cartItems.forEach(item => {
       total += item.price;
     });
     return total;
   }
 
   checkout(): boolean {
-    if (this.cart.length) {
-      this.cart = []; // Make the cart empty
+    if (this.cartItems.length) {
+      this.cartItems = []; // Make the cart empty
       return true;
     }
     return false;
