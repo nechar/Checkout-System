@@ -54,12 +54,12 @@ export class CheckoutService {
     });
   }
 
-  findCartItem(itemSKU) {
+  findCartItem(itemSKU): Item {
     const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
     if (cartItem.length) {
       return cartItem[0];
     }
-    return false;
+    return null;
   }
 
   getTotal(): number {

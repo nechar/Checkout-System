@@ -60,3 +60,9 @@ test("Adding Mac Book pro should automatically add an item VGA adapter", () => {
   checkout.scan("mbp");
   expect(checkout.findCartItem("vga")).toBeTruthy();
 });
+
+test("Adding an apple TV should have only one apple TV", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("atv");
+  expect(checkout.findCartItem("atv").quantity === 1).toBeTruthy();
+});
