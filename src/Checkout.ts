@@ -28,6 +28,7 @@ export class CheckoutService {
     });
     // Case: Item does NOT exist in the cart
     if (!itemAlreadyExistInCart) {
+      scannedItem.quantity = 1;
       this.cartItems.push(scannedItem);
     }
   }
@@ -54,7 +55,7 @@ export class CheckoutService {
   getTotal(): number {
     let total = 0;
     this.cartItems.forEach(item => {
-      total += item.price;
+      total += item.price * item.quantity;
     });
     return total;
   }
