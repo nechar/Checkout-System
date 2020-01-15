@@ -12,7 +12,8 @@ export const items: Item[] = [
     sku: "mbp",
     name: "MacBook Pro",
     price: 1399.99,
-    offerCode: "freeVGAAdapter"
+    offerCode: "freeItem",
+    freeItemSKU: "vga"
   },
   {
     sku: "atv",

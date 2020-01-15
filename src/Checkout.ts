@@ -52,8 +52,8 @@ export class CheckoutService {
             cartItem.price = scannedItem.discountPrice;
           }
           break;
-        case "freeVGAAdapter":
-          const vga = this.findItem("vga");
+        case "freeItem":
+          const vga = this.findItem(scannedItem.freeItemSKU);
           this.addItemToCart(vga);
           break;
         case "3for2":
