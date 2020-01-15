@@ -10,6 +10,7 @@ export class CheckoutService {
       return false;
     }
     this.addItemToCart(scannedItem);
+
     if (scannedItem.offerCode) {
       this.applyDiscount(scannedItem);
     }
@@ -46,7 +47,19 @@ export class CheckoutService {
       if (cartItem.offerCode === "bulk-discount" && cartItem.quantity > 4) {
         cartItem.price = 499.99;
       }
+      if (scannedItem.offerCode === "freeVGAAdapter") {
+        const vga = this.findItem("vga");
+        this.addItemToCart(vga);
+      }
     });
+  }
+
+  findCartItem(itemSKU) {
+    const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
+    if (cartItem.length) {
+      return cartItem[0];
+    }
+    return false;
   }
 
   getTotal(): number {

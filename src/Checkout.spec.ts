@@ -54,3 +54,9 @@ test("Adding Super iPad should automatically apply a discount. Total cost should
   const total = checkout.getTotal();
   expect(total).toBe(2499.95);
 });
+
+test("Adding Mac Book pro should automatically add an item VGA adapter", () => {
+  const checkout = new CheckoutService();
+  checkout.scan("mbp");
+  expect(checkout.findCartItem("vga")).toBeTruthy();
+});
