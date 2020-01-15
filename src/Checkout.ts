@@ -4,7 +4,7 @@ import { Item } from "./data/item";
 export class CheckoutService {
   cartItems: Item[] = [];
 
-  freeVGAEligible = false;
+  isEligibleForFreeItem = false; // Free VGA
 
   scan(itemSKU: string): boolean {
     const scannedItem: Item = this.findItem(itemSKU);
@@ -57,10 +57,10 @@ export class CheckoutService {
           this.addItemToCart(vga);
           break;
         case "3for2":
-          if (this.freeVGAEligible) {
+          if (this.isEligibleForFreeItem) {
             this.addItemToCart(scannedItem);
           }
-          this.freeVGAEligible = !this.freeVGAEligible;
+          this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
           break;
       }
     });
