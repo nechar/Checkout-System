@@ -4,4 +4,5 @@ export interface Item {
   price: number;
   offerCode: "3for2" | "bulk-discount" | "freeVGAAdapter" | null;
   quantity?: number;
+  discountPrice?: number;
 }

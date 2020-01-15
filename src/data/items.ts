@@ -5,7 +5,8 @@ export const items: Item[] = [
     sku: "ipd",
     name: "Super iPad",
     price: 549.99,
-    offerCode: "bulk-discount"
+    offerCode: "bulk-discount",
+    discountPrice: 499.99
   },
   {
     sku: "mbp",

@@ -36,7 +36,7 @@ export class CheckoutService {
     }
   }
 
-  private findItem(itemSKU) {
+  findItem(itemSKU) {
     const item = items.filter(item => item.sku === itemSKU);
     if (item.length) {
       return item[0];
@@ -49,7 +49,7 @@ export class CheckoutService {
       switch (scannedItem.offerCode) {
         case "bulk-discount":
           if (cartItem.quantity > 4) {
-            cartItem.price = 499.99;
+            cartItem.price = scannedItem.discountPrice;
           }
           break;
         case "freeVGAAdapter":
