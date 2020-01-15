@@ -42,14 +42,11 @@ export class CheckoutService {
   }
 
   applyDiscount(scannedItem: Item) {
-    switch (scannedItem.offerCode) {
-      case "3for2":
-        break;
-      case "bulk-discount":
-        break;
-      case "freeVGAAdapter":
-        break;
-    }
+    this.cartItems.forEach(cartItem => {
+      if (cartItem.offerCode === "bulk-discount" && cartItem.quantity > 4) {
+        cartItem.price = 499.99;
+      }
+    });
   }
 
   getTotal(): number {
