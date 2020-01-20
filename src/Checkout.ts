@@ -44,7 +44,7 @@ export class CheckoutService {
     return null;
   }
 
-  applyDiscount(scannedItem: Item) {
+  private applyDiscount(scannedItem: Item) {
     this.cartItems.forEach(cartItem => {
       switch (scannedItem.offerCode) {
         case "bulk-discount":
