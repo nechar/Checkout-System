@@ -40,8 +40,9 @@ test("Scanning Super iPad should cost 1099.98", () => {
   const checkout = new CheckoutService();
   checkout.scan("ipd");
   checkout.scan("ipd");
+  const item = checkout.findItem("ipd");
   const total = checkout.getTotal();
-  expect(total).toBe(1099.98);
+  expect(total).toBe(item.price * 2); // $1099.98
 });
 
 test("Scanning FIVE Super iPad should automatically apply a discount. Total cost should be 2499.95", () => {
@@ -51,8 +52,9 @@ test("Scanning FIVE Super iPad should automatically apply a discount. Total cost
   checkout.scan("ipd");
   checkout.scan("ipd");
   checkout.scan("ipd");
+  const item = checkout.findItem("ipd");
   const total = checkout.getTotal();
-  expect(total).toBe(2499.95);
+  expect(total).toBe(item.discountPrice * 5); // $2499.95
 });
 
 test("Scanning a Mac Book pro should automatically add an item - VGA adapter", () => {

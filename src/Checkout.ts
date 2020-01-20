@@ -4,7 +4,7 @@ import { Item } from "./data/item.interface";
 export class CheckoutService {
   cartItems: Item[] = [];
 
-  freeVGAEligible = false;
+  isEligibleForFreeItem = false; // Free VGA
 
   scan(itemSKU: string): boolean {
     const scannedItem: Item = this.findItem(itemSKU);
@@ -36,7 +36,7 @@ export class CheckoutService {
     }
   }
 
-  private findItem(itemSKU) {
+  findItem(itemSKU) {
     const item = items.filter(item => item.sku === itemSKU);
     if (item.length) {
       return item[0];
@@ -46,20 +46,22 @@ export class CheckoutService {
 
   applyDiscount(scannedItem: Item) {
     this.cartItems.forEach(cartItem => {
-      if (cartItem.offerCode === "bulk-discount" && cartItem.quantity > 4) {
-        cartItem.price = 499.99;
-      }
-      if (scannedItem.offerCode === "freeVGAAdapter") {
-        const vga = this.findItem("vga");
-        this.addItemToCart(vga);
-      }
-      if (scannedItem.offerCode === "3for2") {
-        if (this.freeVGAEligible) {
-          this.addItemToCart(scannedItem);
-          this.freeVGAEligible = false;
-        } else {
-          this.freeVGAEligible = true;
-        }
+      switch (scannedItem.offerCode) {
+        case "bulk-discount":
+          if (cartItem.quantity > 4) {
+            cartItem.price = scannedItem.discountPrice;
+          }
+          break;
+        case "freeItem":
+          const vga = this.findItem(scannedItem.freeItemSKU);
+          this.addItemToCart(vga);
+          break;
+        case "3for2":
+          if (this.isEligibleForFreeItem) {
+            this.addItemToCart(scannedItem);
+          }
+          this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
+          break;
       }
     });
   }

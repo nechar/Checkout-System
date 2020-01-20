@@ -5,13 +5,15 @@ export const items: Item[] = [
     sku: "ipd",
     name: "Super iPad",
     price: 549.99,
-    offerCode: "bulk-discount"
+    offerCode: "bulk-discount",
+    discountPrice: 499.99
   },
   {
     sku: "mbp",
     name: "MacBook Pro",
     price: 1399.99,
-    offerCode: "freeVGAAdapter"
+    offerCode: "freeItem",
+    freeItemSKU: "vga"
   },
   {
     sku: "atv",
