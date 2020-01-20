@@ -1,12 +1,12 @@
 import { items } from "./data/items";
-import { Item } from "./data/item.interface";
+import { Item, ItemSKU } from "./data/item.interface";
 
 export class CheckoutService {
   cartItems: Item[] = [];
 
   isEligibleForFreeItem = false; // Free VGA
 
-  scan(itemSKU: string): boolean {
+  scan(itemSKU: ItemSKU): boolean {
     const scannedItem: Item = this.findItem(itemSKU);
     if (!scannedItem) {
       return false;

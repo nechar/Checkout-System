@@ -1,28 +1,28 @@
-import { Item } from "./item.interface";
+import { Item, ItemSKU } from "./item.interface";
 
 export const items: Item[] = [
   {
-    sku: "ipd",
+    sku: ItemSKU.ipd,
     name: "Super iPad",
     price: 549.99,
     offerCode: "bulk-discount",
     discountPrice: 499.99
   },
   {
-    sku: "mbp",
+    sku: ItemSKU.mbp,
     name: "MacBook Pro",
     price: 1399.99,
     offerCode: "freeItem",
-    freeItemSKU: "vga"
+    freeItemSKU: ItemSKU.vga
   },
   {
-    sku: "atv",
+    sku: ItemSKU.atv,
     name: "Apple TV",
     price: 109.5,
     offerCode: "3for2"
   },
   {
-    sku: "vga",
+    sku: ItemSKU.vga,
     name: "VGA adapter",
     price: 30.0,
     offerCode: null
