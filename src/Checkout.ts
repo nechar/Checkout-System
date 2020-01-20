@@ -1,5 +1,5 @@
 import { items } from "./data/items";
-import { Item } from "./data/item";
+import { Item } from "./data/item.interface";
 
 export class CheckoutService {
   cartItems: Item[] = [];
