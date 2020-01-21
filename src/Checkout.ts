@@ -1,7 +1,7 @@
 import { items } from "./data/items";
 import { Item, ItemSKU } from "./data/item.interface";
 
-export class CheckoutService {
+export class CartService {
   cartItems: Item[] = [];
 
   isEligibleForFreeItem = false; // Free VGA
@@ -53,8 +53,8 @@ export class CheckoutService {
           }
           break;
         case "freeItem":
-          const vga = this.findItem(scannedItem.freeItemSKU);
-          this.addItemToCart(vga);
+          const freeItem = this.findItem(scannedItem.freeItemSKU);
+          this.addItemToCart(freeItem);
           break;
         case "3for2":
           if (this.isEligibleForFreeItem) {

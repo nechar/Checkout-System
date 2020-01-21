@@ -3,7 +3,7 @@
 ### Pull the repository
 
 ```sh
-$ git clone https://github.com/nechar/Checkout.git
+$ git clone https://github.com/nechar/cartService.getTotalgit
 ```
 
 ### Change into the directory
