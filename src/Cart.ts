@@ -1,6 +1,6 @@
 import { iItem, ItemSKU } from "./model/item.interface";
 
-import { ItemCollection } from "./Item";
+import { ItemCollection } from "./ItemCollection";
 const itemCollection = new ItemCollection();
 
 export class Cart {

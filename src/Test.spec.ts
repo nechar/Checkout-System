@@ -1,5 +1,5 @@
 import { Cart } from "./Cart";
-import { ItemCollection } from "./Item";
+import { ItemCollection } from "./ItemCollection";
 import { ItemSKU } from "./model/item.interface";
 
 test("should be able to scan an existing item- Eg: Super iPad", () => {
