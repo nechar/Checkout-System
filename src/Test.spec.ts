@@ -27,7 +27,7 @@ test("Scanning Super iPad should cost 1099.98", () => {
   cart.scan(ItemSKU.ipd);
   const item = itemController.findItem(ItemSKU.ipd);
   const total = cart.getTotal();
-  expect(total).toBe(item.price * 2); // $1099.98
+  expect(total).toBe(1099.98);
 });
 
 test("Scanning FIVE Super iPad should automatically apply a discount. Total cost should be 2499.95", () => {
