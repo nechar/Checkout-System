@@ -1,20 +1,20 @@
 import { iItem, ItemSKU } from "./model/item.interface";
 
 import { ItemCollection } from "./Item";
-const itemController = new ItemCollection();
+const itemCollection = new ItemCollection();
 
 export class Cart {
   cartItems: iItem[] = [];
 
   scan(itemSKU: ItemSKU): iItem {
-    const scannedItem: iItem = itemController.findItem(itemSKU);
+    const scannedItem: iItem = itemCollection.findItem(itemSKU);
     if (!scannedItem) {
       throw new Error(`Could not find the item: ${itemSKU}`);
     }
     const newCartItem: iItem = this.addItemToCart(scannedItem);
 
     if (scannedItem.offerCode === "freeItem") {
-      const freeItem = itemController.findItem(scannedItem.freeItemSKU);
+      const freeItem = itemCollection.findItem(scannedItem.freeItemSKU);
       if (freeItem) {
         // Adding a free VGA into the cart
         this.addItemToCart(freeItem);
