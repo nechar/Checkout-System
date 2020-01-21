@@ -37,20 +37,21 @@ export class Cart {
     this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
   }
 
-  private addItemToCart(scannedItem: Item) {
+  private addItemToCart(scannedItem: Item): Item {
     let itemAlreadyExistInCart = false;
     this.cartItems.forEach(cartItem => {
       if (cartItem.sku === scannedItem.sku) {
         // Case: Item already exist in the cart
         itemAlreadyExistInCart = true;
         cartItem.quantity++;
-        return;
+        return cartItem;
       }
     });
     // Case: Item does NOT exist in the cart
     if (!itemAlreadyExistInCart) {
-      scannedItem.quantity = 1;
-      this.cartItems.push(scannedItem);
+      const newCartItem = { ...scannedItem, quantity: 1 };
+      this.cartItems.push(newCartItem);
+      return newCartItem;
     }
   }
 
