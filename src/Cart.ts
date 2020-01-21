@@ -39,27 +39,18 @@ export class Cart {
   }
 
   private applyDiscount(scannedItem: Item) {
-    this.cartItems.forEach(cartItem => {
-      switch (scannedItem.offerCode) {
-        case "bulk-discount":
-          if (cartItem.quantity > 4) {
-            cartItem.price = scannedItem.discountPrice;
-          }
-          break;
-        case "freeItem":
-          const freeItem = this.itemController.findItem(
-            scannedItem.freeItemSKU
-          );
-          this.addItemToCart(freeItem);
-          break;
-        case "3for2":
-          if (this.isEligibleForFreeItem) {
-            this.addItemToCart(scannedItem);
-          }
-          this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
-          break;
-      }
-    });
+    switch (scannedItem.offerCode) {
+      case "freeItem":
+        const freeItem = this.itemController.findItem(scannedItem.freeItemSKU);
+        this.addItemToCart(freeItem);
+        break;
+      case "3for2":
+        if (this.isEligibleForFreeItem) {
+          this.addItemToCart(scannedItem);
+        }
+        this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
+        break;
+    }
   }
 
   findCartItem(itemSKU: ItemSKU): Item {
@@ -73,7 +64,11 @@ export class Cart {
   getTotal(): number {
     let total = 0;
     this.cartItems.forEach(item => {
-      total += item.price * item.quantity;
+      if (item.offerCode === "bulk-discount" && item.quantity > 4) {
+        total += item.discountPrice * item.quantity;
+      } else {
+        total += item.price * item.quantity;
+      }
     });
     return total;
   }
