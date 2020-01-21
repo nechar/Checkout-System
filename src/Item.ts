@@ -1,7 +1,7 @@
 import { sampleItems } from "./data/sample-items";
 import { iItem, ItemSKU } from "./model/item.interface";
 
-export class ItemController {
+export class ItemCollection {
   items: iItem[] = sampleItems;
 
   findItem(itemSKU: ItemSKU): iItem {

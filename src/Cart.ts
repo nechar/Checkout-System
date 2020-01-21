@@ -1,7 +1,7 @@
 import { iItem, ItemSKU } from "./model/item.interface";
 
-import { ItemController } from "./Item";
-const itemController = new ItemController();
+import { ItemCollection } from "./Item";
+const itemController = new ItemCollection();
 
 export class Cart {
   cartItems: iItem[] = [];

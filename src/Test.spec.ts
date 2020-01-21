@@ -1,5 +1,5 @@
 import { Cart } from "./Cart";
-import { ItemController } from "./Item";
+import { ItemCollection } from "./Item";
 import { ItemSKU } from "./model/item.interface";
 
 test("should be able to scan an existing item- Eg: Super iPad", () => {
@@ -22,7 +22,7 @@ test("when an item is added into the cart, the total should be greater than zero
 
 test("Scanning Super iPad should cost 1099.98", () => {
   const cart = new Cart();
-  const itemController = new ItemController();
+  const itemController = new ItemCollection();
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
   const item = itemController.findItem(ItemSKU.ipd);
@@ -32,7 +32,7 @@ test("Scanning Super iPad should cost 1099.98", () => {
 
 test("Scanning FIVE Super iPad should automatically apply a discount. Total cost should be 2499.95", () => {
   const cart = new Cart();
-  const itemController = new ItemController();
+  const itemController = new ItemCollection();
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
