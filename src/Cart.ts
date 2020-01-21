@@ -28,6 +28,26 @@ export class Cart {
     return scannedItem;
   }
 
+  findItem(itemSKU: ItemSKU): Item {
+    const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
+    if (cartItem.length) {
+      return cartItem[0];
+    }
+    return null;
+  }
+
+  getTotal(): number {
+    let total = 0;
+    this.cartItems.forEach(cartItem => {
+      if (cartItem.offerCode === "bulk-discount" && cartItem.quantity > 4) {
+        total += cartItem.discountPrice * cartItem.quantity;
+      } else {
+        total += cartItem.price * cartItem.quantity;
+      }
+    });
+    return total;
+  }
+
   private check3for2Eligibility(newCartItem: Item): boolean {
     // Every (3rd - 1)th items are eligible for a `3 for 2` offer.
     // Eg: 2nd, 5th, 8th, 11th and so on.
@@ -52,25 +72,5 @@ export class Cart {
     } else {
       return existingItem;
     }
-  }
-
-  findItem(itemSKU: ItemSKU): Item {
-    const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
-    if (cartItem.length) {
-      return cartItem[0];
-    }
-    return null;
-  }
-
-  getTotal(): number {
-    let total = 0;
-    this.cartItems.forEach(cartItem => {
-      if (cartItem.offerCode === "bulk-discount" && cartItem.quantity > 4) {
-        total += cartItem.discountPrice * cartItem.quantity;
-      } else {
-        total += cartItem.price * cartItem.quantity;
-      }
-    });
-    return total;
   }
 }
