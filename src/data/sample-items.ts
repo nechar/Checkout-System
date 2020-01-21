@@ -1,6 +1,6 @@
 import { iItem, ItemSKU } from "../model/item.interface";
 
-export const sampleItems: iItem[] = [
+export const itemList: iItem[] = [
   {
     sku: ItemSKU.ipd,
     name: "Super iPad",
