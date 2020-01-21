@@ -1,6 +1,6 @@
 import { Cart } from "./Cart";
 import { ItemController } from "./Item";
-import { ItemSKU } from "./data/item.interface";
+import { ItemSKU } from "./model/item.interface";
 
 test("should be able to scan an existing item- Eg: Super iPad", () => {
   const cart = new Cart();

@@ -1,4 +1,4 @@
-import { Item, ItemSKU } from "./data/item.interface";
+import { Item, ItemSKU } from "./model/item.interface";
 
 import { ItemController } from "./Item";
 const itemController = new ItemController();
