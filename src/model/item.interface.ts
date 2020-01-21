@@ -19,7 +19,7 @@ export enum ItemSKU {
  */
 type offerCode = "3for2" | "bulk-discount" | "freeItem" | null;
 
-export interface Item {
+export interface iItem {
   sku: ItemSKU;
   name: string;
   price: number;

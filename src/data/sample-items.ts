@@ -1,6 +1,6 @@
-import { Item, ItemSKU } from "../model/item.interface";
+import { iItem, ItemSKU } from "../model/item.interface";
 
-export const sampleItems: Item[] = [
+export const sampleItems: iItem[] = [
   {
     sku: ItemSKU.ipd,
     name: "Super iPad",

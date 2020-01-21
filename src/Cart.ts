@@ -1,17 +1,17 @@
-import { Item, ItemSKU } from "./model/item.interface";
+import { iItem, ItemSKU } from "./model/item.interface";
 
 import { ItemController } from "./Item";
 const itemController = new ItemController();
 
 export class Cart {
-  cartItems: Item[] = [];
+  cartItems: iItem[] = [];
 
-  scan(itemSKU: ItemSKU): Item {
-    const scannedItem: Item = itemController.findItem(itemSKU);
+  scan(itemSKU: ItemSKU): iItem {
+    const scannedItem: iItem = itemController.findItem(itemSKU);
     if (!scannedItem) {
       throw new Error(`Could not find the item: ${itemSKU}`);
     }
-    const newCartItem: Item = this.addItemToCart(scannedItem);
+    const newCartItem: iItem = this.addItemToCart(scannedItem);
 
     if (scannedItem.offerCode === "freeItem") {
       const freeItem = itemController.findItem(scannedItem.freeItemSKU);
@@ -28,7 +28,7 @@ export class Cart {
     return scannedItem;
   }
 
-  findItem(itemSKU: ItemSKU): Item {
+  findItem(itemSKU: ItemSKU): iItem {
     const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
     if (cartItem.length) {
       return cartItem[0];
@@ -48,13 +48,13 @@ export class Cart {
     return total;
   }
 
-  private check3for2Eligibility(newCartItem: Item): boolean {
+  private check3for2Eligibility(newCartItem: iItem): boolean {
     // Every (3rd - 1)th items are eligible for a `3 for 2` offer.
     // Eg: 2nd, 5th, 8th, 11th and so on.
     return (newCartItem.quantity + 1) % 3 === 0;
   }
 
-  private addItemToCart(scannedItem: Item): Item {
+  private addItemToCart(scannedItem: iItem): iItem {
     let existingItem = null;
     this.cartItems.forEach(cartItem => {
       if (cartItem.sku === scannedItem.sku) {

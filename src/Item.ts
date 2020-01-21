@@ -1,10 +1,10 @@
 import { sampleItems } from "./data/sample-items";
-import { Item, ItemSKU } from "./model/item.interface";
+import { iItem, ItemSKU } from "./model/item.interface";
 
 export class ItemController {
-  items: Item[] = sampleItems;
+  items: iItem[] = sampleItems;
 
-  findItem(itemSKU: ItemSKU): Item {
+  findItem(itemSKU: ItemSKU): iItem {
     const item = this.items.filter(item => item.sku === itemSKU);
     if (item.length) {
       return item[0];
