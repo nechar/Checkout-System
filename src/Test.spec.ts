@@ -55,7 +55,7 @@ test("Scanning FIVE Super iPad should automatically apply a discount. Total cost
   cart.scan(ItemSKU.ipd);
   const item = cart.findItem(ItemSKU.ipd);
   const total = cart.getTotal();
-  expect(total).toBe(item.discountPrice * 5); // $2499.95
+  expect(total).toBe(2499.95);
 });
 
 test("Scanning a Mac Book pro should automatically add an item - VGA adapter", () => {
