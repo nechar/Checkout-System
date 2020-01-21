@@ -15,10 +15,26 @@ export class Cart {
     }
     this.addItemToCart(scannedItem);
 
-    if (scannedItem.offerCode) {
-      this.applyDiscount(scannedItem);
+    if (scannedItem.offerCode === "freeItem") {
+      this.addFreeItem(scannedItem);
+    }
+
+    if (scannedItem.offerCode === "3for2") {
+      this.addBonusItem(scannedItem);
     }
     return scannedItem;
+  }
+
+  private addFreeItem(scannedItem) {
+    const freeItem = this.itemController.findItem(scannedItem.freeItemSKU);
+    this.addItemToCart(freeItem);
+  }
+
+  private addBonusItem(scannedItem) {
+    if (this.isEligibleForFreeItem) {
+      this.addItemToCart(scannedItem);
+    }
+    this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
   }
 
   private addItemToCart(scannedItem: Item) {
@@ -38,21 +54,6 @@ export class Cart {
     }
   }
 
-  private applyDiscount(scannedItem: Item) {
-    switch (scannedItem.offerCode) {
-      case "freeItem":
-        const freeItem = this.itemController.findItem(scannedItem.freeItemSKU);
-        this.addItemToCart(freeItem);
-        break;
-      case "3for2":
-        if (this.isEligibleForFreeItem) {
-          this.addItemToCart(scannedItem);
-        }
-        this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
-        break;
-    }
-  }
-
   findCartItem(itemSKU: ItemSKU): Item {
     const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
     if (cartItem.length) {
@@ -63,11 +64,11 @@ export class Cart {
 
   getTotal(): number {
     let total = 0;
-    this.cartItems.forEach(item => {
-      if (item.offerCode === "bulk-discount" && item.quantity > 4) {
-        total += item.discountPrice * item.quantity;
+    this.cartItems.forEach(cartItem => {
+      if (cartItem.offerCode === "bulk-discount" && cartItem.quantity > 4) {
+        total += cartItem.discountPrice * cartItem.quantity;
       } else {
-        total += item.price * item.quantity;
+        total += cartItem.price * cartItem.quantity;
       }
     });
     return total;
