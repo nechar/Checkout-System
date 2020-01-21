@@ -1,40 +1,31 @@
 import { Item, ItemSKU } from "./data/item.interface";
+
 import { ItemController } from "./Item";
+const itemController = new ItemController();
 
 export class Cart {
   cartItems: Item[] = [];
 
-  isEligibleForFreeItem = false;
-
-  itemController = new ItemController();
-
   scan(itemSKU: ItemSKU): Item {
-    const scannedItem: Item = this.itemController.findItem(itemSKU);
+    const scannedItem: Item = itemController.findItem(itemSKU);
     if (!scannedItem) {
       throw new Error(`Could not find the item: ${itemSKU}`);
     }
     const newCartItem: Item = this.addItemToCart(scannedItem);
 
     if (scannedItem.offerCode === "freeItem") {
-      this.addFreeItem(scannedItem);
+      // Adding a free VGA into the cart
+      const freeItem = itemController.findItem(scannedItem.freeItemSKU);
+      this.addItemToCart(freeItem);
     }
-
-    if (scannedItem.offerCode === "3for2") {
-      this.addExtraItem(scannedItem, newCartItem);
-    }
-    return scannedItem;
-  }
-
-  private addFreeItem(scannedItem) {
-    const freeItem = this.itemController.findItem(scannedItem.freeItemSKU);
-    this.addItemToCart(freeItem);
-  }
-
-  private addExtraItem(scannedItem, newCartItem) {
-    if (this.isEligibleForFreeItem) {
+    if (
+      scannedItem.offerCode === "3for2" &&
+      (newCartItem.quantity + 1) % 3 === 0
+    ) {
+      // Adding an extra item for every (3rd-1)th item into the cart
       this.addItemToCart(scannedItem);
     }
-    this.isEligibleForFreeItem = !this.isEligibleForFreeItem;
+    return scannedItem;
   }
 
   private addItemToCart(scannedItem: Item): Item {
@@ -57,7 +48,7 @@ export class Cart {
     }
   }
 
-  findCartItem(itemSKU: ItemSKU): Item {
+  findItem(itemSKU: ItemSKU): Item {
     const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
     if (cartItem.length) {
       return cartItem[0];
@@ -75,13 +66,5 @@ export class Cart {
       }
     });
     return total;
-  }
-
-  checkout(): boolean {
-    if (this.cartItems.length) {
-      this.cartItems = []; // Make the cart empty
-      return true;
-    }
-    throw new Error("Cannot checkout when the cart is empty");
   }
 }

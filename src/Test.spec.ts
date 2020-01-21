@@ -20,26 +20,6 @@ test("when an item is added into the cart, the total should be greater than zero
   expect(total).toBeGreaterThan(0);
 });
 
-test("should NOT be able checkout without adding an item", () => {
-  const cart = new Cart();
-  expect(() => {
-    cart.checkout();
-  }).toThrow();
-});
-
-test("should be able checkout after adding at least one item", () => {
-  const cart = new Cart();
-  cart.scan(ItemSKU.ipd);
-  expect(cart.checkout()).toBeTruthy();
-});
-
-test("should be able checkout after adding at multiple item", () => {
-  const cart = new Cart();
-  cart.scan(ItemSKU.ipd);
-  cart.scan(ItemSKU.ipd);
-  expect(cart.checkout()).toBeTruthy();
-});
-
 test("Scanning Super iPad should cost 1099.98", () => {
   const cart = new Cart();
   const itemController = new ItemController();
@@ -66,20 +46,20 @@ test("Scanning FIVE Super iPad should automatically apply a discount. Total cost
 test("Scanning a Mac Book pro should automatically add an item - VGA adapter", () => {
   const cart = new Cart();
   cart.scan(ItemSKU.mbp);
-  expect(cart.findCartItem(ItemSKU.vga)).toBeTruthy();
+  expect(cart.findItem(ItemSKU.vga)).toBeTruthy();
 });
 
 test("Scanning an Apple TV should result in having only 1 apple TV on the cart", () => {
   const cart = new Cart();
   cart.scan(ItemSKU.atv);
-  expect(cart.findCartItem(ItemSKU.atv).quantity === 1).toBeTruthy();
+  expect(cart.findItem(ItemSKU.atv).quantity === 1).toBeTruthy();
 });
 
 test("Scanning TWO apple TV should have THREE apple TVs on the cart", () => {
   const cart = new Cart();
   cart.scan(ItemSKU.atv);
   cart.scan(ItemSKU.atv);
-  expect(cart.findCartItem(ItemSKU.atv).quantity === 3).toBeTruthy();
+  expect(cart.findItem(ItemSKU.atv).quantity === 3).toBeTruthy();
 });
 
 test("Scanning THREE apple TV should have FOUR apple TVs on the cart", () => {
@@ -87,7 +67,7 @@ test("Scanning THREE apple TV should have FOUR apple TVs on the cart", () => {
   cart.scan(ItemSKU.atv);
   cart.scan(ItemSKU.atv);
   cart.scan(ItemSKU.atv);
-  expect(cart.findCartItem(ItemSKU.atv).quantity === 4).toBeTruthy();
+  expect(cart.findItem(ItemSKU.atv).quantity === 4).toBeTruthy();
 });
 
 test("Scanning FOUR apple TV should have SIX apple TVs on the cart", () => {
@@ -96,5 +76,5 @@ test("Scanning FOUR apple TV should have SIX apple TVs on the cart", () => {
   cart.scan(ItemSKU.atv);
   cart.scan(ItemSKU.atv);
   cart.scan(ItemSKU.atv);
-  expect(cart.findCartItem(ItemSKU.atv).quantity === 6).toBeTruthy();
+  expect(cart.findItem(ItemSKU.atv).quantity === 6).toBeTruthy();
 });
