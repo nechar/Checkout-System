@@ -1,4 +1,4 @@
-import { sampleItems } from "./data/sampleItems";
+import { sampleItems } from "./data/sample-items";
 import { Item, ItemSKU } from "./model/item.interface";
 
 export class ItemController {
