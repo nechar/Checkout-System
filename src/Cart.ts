@@ -42,8 +42,8 @@ export class Cart {
     this.cartItems.forEach(cartItem => {
       if (cartItem.sku === scannedItem.sku) {
         // Case: Item already exist in the cart
-        existingItem = cartItem;
         cartItem.quantity++;
+        existingItem = cartItem;
         return existingItem;
       }
     });
