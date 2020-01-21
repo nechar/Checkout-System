@@ -1,4 +1,4 @@
-import { itemList } from "./data/sample-items";
+import { itemList } from "./data/item-list";
 import { iItem, ItemSKU } from "./model/item.interface";
 
 export class ItemCollection {
