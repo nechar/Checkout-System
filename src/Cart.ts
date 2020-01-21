@@ -12,7 +12,7 @@ export class Cart {
   scan(itemSKU: ItemSKU): boolean {
     const scannedItem: Item = this.itemController.findItem(itemSKU);
     if (!scannedItem) {
-      return false;
+      throw new Error(`Could not find the item: ${itemSKU}`);
     }
     this.addItemToCart(scannedItem);
 
@@ -84,6 +84,6 @@ export class Cart {
       this.cartItems = []; // Make the cart empty
       return true;
     }
-    throw new Error("Item not found");
+    throw new Error("Cannot checkout when the cart is empty");
   }
 }
