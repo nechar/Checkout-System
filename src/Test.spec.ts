@@ -1,4 +1,5 @@
 import { Cart } from "./Cart";
+import { ItemController } from "./Item";
 import { ItemSKU } from "./data/item.interface";
 
 test("should be able to scan an existing item- Eg: Super iPad", () => {
@@ -39,21 +40,23 @@ test("should be able checkout after adding at multiple item", () => {
 
 test("Scanning Super iPad should cost 1099.98", () => {
   const cart = new Cart();
+  const itemController = new ItemController();
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
-  const item = cart.findItem(ItemSKU.ipd);
+  const item = itemController.findItem(ItemSKU.ipd);
   const total = cart.getTotal();
   expect(total).toBe(item.price * 2); // $1099.98
 });
 
 test("Scanning FIVE Super iPad should automatically apply a discount. Total cost should be 2499.95", () => {
   const cart = new Cart();
+  const itemController = new ItemController();
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
   cart.scan(ItemSKU.ipd);
-  const item = cart.findItem(ItemSKU.ipd);
+  const item = itemController.findItem(ItemSKU.ipd);
   const total = cart.getTotal();
   expect(total).toBe(2499.95);
 });

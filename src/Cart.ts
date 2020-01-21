@@ -1,13 +1,16 @@
 import { items } from "./data/items";
 import { Item, ItemSKU } from "./data/item.interface";
+import { ItemController } from "./Item";
 
 export class Cart {
   cartItems: Item[] = [];
 
   isEligibleForFreeItem = false; // Free VGA
 
+  itemController = new ItemController();
+
   scan(itemSKU: ItemSKU): boolean {
-    const scannedItem: Item = this.findItem(itemSKU);
+    const scannedItem: Item = this.itemController.findItem(itemSKU);
     if (!scannedItem) {
       return false;
     }
@@ -36,14 +39,6 @@ export class Cart {
     }
   }
 
-  findItem(itemSKU) {
-    const item = items.filter(item => item.sku === itemSKU);
-    if (item.length) {
-      return item[0];
-    }
-    return null;
-  }
-
   private applyDiscount(scannedItem: Item) {
     this.cartItems.forEach(cartItem => {
       switch (scannedItem.offerCode) {
@@ -53,7 +48,9 @@ export class Cart {
           }
           break;
         case "freeItem":
-          const freeItem = this.findItem(scannedItem.freeItemSKU);
+          const freeItem = this.itemController.findItem(
+            scannedItem.freeItemSKU
+          );
           this.addItemToCart(freeItem);
           break;
         case "3for2":
