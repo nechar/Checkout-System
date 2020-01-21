@@ -13,14 +13,14 @@ export class Cart {
     if (!scannedItem) {
       throw new Error(`Could not find the item: ${itemSKU}`);
     }
-    this.addItemToCart(scannedItem);
+    const newCartItem: Item = this.addItemToCart(scannedItem);
 
     if (scannedItem.offerCode === "freeItem") {
       this.addFreeItem(scannedItem);
     }
 
     if (scannedItem.offerCode === "3for2") {
-      this.addBonusItem(scannedItem);
+      this.addExtraItem(scannedItem, newCartItem);
     }
     return scannedItem;
   }
@@ -30,7 +30,7 @@ export class Cart {
     this.addItemToCart(freeItem);
   }
 
-  private addBonusItem(scannedItem) {
+  private addExtraItem(scannedItem, newCartItem) {
     if (this.isEligibleForFreeItem) {
       this.addItemToCart(scannedItem);
     }
@@ -38,20 +38,22 @@ export class Cart {
   }
 
   private addItemToCart(scannedItem: Item): Item {
-    let itemAlreadyExistInCart = false;
+    let existingItem = null;
     this.cartItems.forEach(cartItem => {
       if (cartItem.sku === scannedItem.sku) {
         // Case: Item already exist in the cart
-        itemAlreadyExistInCart = true;
+        existingItem = cartItem;
         cartItem.quantity++;
-        return cartItem;
+        return existingItem;
       }
     });
     // Case: Item does NOT exist in the cart
-    if (!itemAlreadyExistInCart) {
+    if (!existingItem) {
       const newCartItem = { ...scannedItem, quantity: 1 };
       this.cartItems.push(newCartItem);
       return newCartItem;
+    } else {
+      return existingItem;
     }
   }
 
