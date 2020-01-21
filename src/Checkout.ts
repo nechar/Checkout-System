@@ -1,7 +1,7 @@
 import { items } from "./data/items";
 import { Item, ItemSKU } from "./data/item.interface";
 
-export class CartService {
+export class Cart {
   cartItems: Item[] = [];
 
   isEligibleForFreeItem = false; // Free VGA
