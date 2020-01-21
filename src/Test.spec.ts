@@ -1,4 +1,4 @@
-import { Cart } from "./Checkout";
+import { Cart } from "./Cart";
 import { ItemSKU } from "./data/item.interface";
 
 test("should be able to scan an existing item- Eg: Super iPad", () => {
