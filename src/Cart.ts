@@ -14,18 +14,24 @@ export class Cart {
     const newCartItem: Item = this.addItemToCart(scannedItem);
 
     if (scannedItem.offerCode === "freeItem") {
-      // Adding a free VGA into the cart
       const freeItem = itemController.findItem(scannedItem.freeItemSKU);
-      this.addItemToCart(freeItem);
+      if (freeItem) {
+        // Adding a free VGA into the cart
+        this.addItemToCart(freeItem);
+      }
     }
-    if (
-      scannedItem.offerCode === "3for2" &&
-      (newCartItem.quantity + 1) % 3 === 0
-    ) {
-      // Adding an extra item for every (3rd-1)th item into the cart
-      this.addItemToCart(scannedItem);
+    if (scannedItem.offerCode === "3for2") {
+      if (this.check3for2Eligibility(newCartItem)) {
+        this.addItemToCart(scannedItem);
+      }
     }
     return scannedItem;
+  }
+
+  private check3for2Eligibility(newCartItem: Item): boolean {
+    // Every (3rd - 1)th items are eligible for a `3 for 2` offer.
+    // Eg: 2nd, 5th, 8th, 11th and so on.
+    return (newCartItem.quantity + 1) % 3 === 0;
   }
 
   private addItemToCart(scannedItem: Item): Item {
