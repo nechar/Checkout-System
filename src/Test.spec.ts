@@ -22,7 +22,9 @@ test("when an item is added into the cart, the total should be greater than zero
 
 test("should NOT be able checkout without adding an item", () => {
   const cart = new Cart();
-  expect(cart.checkout()).toBeFalsy();
+  expect(() => {
+    cart.checkout();
+  }).toThrow();
 });
 
 test("should be able checkout after adding at least one item", () => {

@@ -84,6 +84,6 @@ export class Cart {
       this.cartItems = []; // Make the cart empty
       return true;
     }
-    return false;
+    throw new Error("Item not found");
   }
 }
