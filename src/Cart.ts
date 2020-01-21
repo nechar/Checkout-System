@@ -1,15 +1,14 @@
-import { items } from "./data/items";
 import { Item, ItemSKU } from "./data/item.interface";
 import { ItemController } from "./Item";
 
 export class Cart {
   cartItems: Item[] = [];
 
-  isEligibleForFreeItem = false; // Free VGA
+  isEligibleForFreeItem = false;
 
   itemController = new ItemController();
 
-  scan(itemSKU: ItemSKU): boolean {
+  scan(itemSKU: ItemSKU): Item {
     const scannedItem: Item = this.itemController.findItem(itemSKU);
     if (!scannedItem) {
       throw new Error(`Could not find the item: ${itemSKU}`);
@@ -19,7 +18,7 @@ export class Cart {
     if (scannedItem.offerCode) {
       this.applyDiscount(scannedItem);
     }
-    return true;
+    return scannedItem;
   }
 
   private addItemToCart(scannedItem: Item) {
@@ -63,7 +62,7 @@ export class Cart {
     });
   }
 
-  findCartItem(itemSKU): Item {
+  findCartItem(itemSKU: ItemSKU): Item {
     const cartItem = this.cartItems.filter(item => item.sku === itemSKU);
     if (cartItem.length) {
       return cartItem[0];
