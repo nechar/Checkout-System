@@ -66,7 +66,7 @@ $ git clone https://github.com/nechar/Checkout-System.git
 ### Change into the directory
 
 ```sh
-$ cd Checkout
+$ cd Checkout-System
 ```
 
 ### Install the dependency
