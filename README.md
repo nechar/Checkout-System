@@ -60,7 +60,7 @@ The codebase in this repository is the solution to the problem mentioned above.
 ### Pull the repository
 
 ```sh
-$ git clone https://github.com/nechar/cartService.getTotalgit
+$ git clone https://github.com/nechar/Checkout-System.git
 ```
 
 ### Change into the directory
